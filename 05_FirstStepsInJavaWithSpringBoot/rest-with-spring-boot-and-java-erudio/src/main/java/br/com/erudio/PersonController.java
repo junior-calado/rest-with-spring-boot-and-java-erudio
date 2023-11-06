@@ -1,11 +1,12 @@
-package br.com.erudio.Startup;
+package br.com.erudio;
 
-import br.com.erudio.Startup.exceptions.UnsupportedMathOperationException;
+import br.com.erudio.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import static org.apache.tomcat.util.http.parser.HttpParser.isNumeric;
+import static br.com.erudio.converters.NumberConverter.convertToDouble;
+import static br.com.erudio.converters.NumberConverter.isNumeric;
 
 @RestController
 public class MathController {
@@ -80,17 +81,6 @@ public class MathController {
     }
 
 
-    private Double convertToDouble(String strNumber) {
-        if (strNumber == null) return 0D;
-        String number = strNumber.replaceAll(",", ".");
-        if (isNumeric(number)) return Double.parseDouble(number);
-        return 0D;
-    }
 
-    private boolean isNumeric(String strNumber) {
-        if (strNumber == null) return false;
-        String number = strNumber.replaceAll(",", ".");
-        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
-    }
 
 }
